@@ -1,4 +1,5 @@
 PROYECTO DE ESTRUCTURAS DE DATOS AVANZADAS
+Mauricio Damian Ramirez MOreno
  Descripción
 Este documento es mi proyecto final de la materia de Estructuras de Datos Avanzadas. Durante el curso fui aprendiendo diferentes estructuras y algoritmos, especialmente los relacionados con grafos y árboles, y al final los apliqué en un proyecto donde simulo una red urbana para calcular rutas eficientes entre varios puntos de una ciudad.
 
