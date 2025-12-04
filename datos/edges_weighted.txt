@@ -1,0 +1,10 @@
+source,target,weight
+Ciudad A,Ciudad B,50.5
+Ciudad A,Ciudad C,80.0
+Ciudad A,Ciudad D,95.0
+Ciudad B,Ciudad D,30.0
+Ciudad C,Ciudad D,45.5
+Ciudad C,Ciudad E,70.0
+Ciudad D,Ciudad E,25.0
+Ciudad B,Ciudad C,60.0
+Ciudad A,Ciudad E,120.0

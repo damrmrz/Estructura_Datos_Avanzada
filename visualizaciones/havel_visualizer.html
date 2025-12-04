@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havel-Hakimi</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: white;
+            margin: 20px;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        .container {
+            border: 2px solid black;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 400px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin: 5px;
+            background-color: lightblue;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: lightgray;
+        }
+
+        .paso {
+            border: 1px solid black;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f5f5f5;
+        }
+
+        .numero {
+            display: inline-block;
+            background-color: gray;
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+
+        .grado {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 5px 10px;
+            margin: 3px;
+            background-color: lightyellow;
+        }
+
+        .eliminado {
+            text-decoration: line-through;
+            color: red;
+        }
+
+        .disminuido {
+            background-color: orange;
+        }
+
+        .resultado {
+            border: 3px solid black;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .valido {
+            background-color: lightgreen;
+        }
+
+        .invalido {
+            background-color: lightcoral;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teorema de Havel-Hakimi</h1>
+    <p>Verificador de secuencias de grados</p>
+
+    <div class="container">
+        <p><b>Ingrese la secuencia de grados:</b></p>
+        <input type="text" id="entrada" placeholder="Ejemplo: 3, 3, 2, 2, 1, 1">
+        <br><br>
+        <button onclick="verificar()">Verificar</button>
+        <button onclick="ejemploValido()">Ejemplo Valido</button>
+        <button onclick="ejemploInvalido()">Ejemplo Invalido</button>
+        <button onclick="limpiar()">Limpiar</button>
+    </div>
+
+    <div id="resultados"></div>
+
+    <script>
+        // En esta parte tome ayuda de la IA para hacer el algoritmo completo
+        
+        function ejemploValido() {
+            document.getElementById('entrada').value = '4, 3, 3, 2, 2';
+        }
+
+        function ejemploInvalido() {
+            document.getElementById('entrada').value = '5, 4, 3, 2, 1';
+        }
+
+        function limpiar() {
+            document.getElementById('entrada').value = '';
+            document.getElementById('resultados').innerHTML = '';
+        }
+
+        function verificar() {
+            var texto = document.getElementById('entrada').value;
+            
+            if (texto == '') {
+                alert('Ingrese una secuencia');
+                return;
+            }
+
+            var nums = texto.split(',').map(function(x) { return parseInt(x.trim()); });
+            nums = nums.filter(function(x) { return !isNaN(x); });
+
+            if (nums.length == 0) {
+                alert('No se encontraron numeros');
+                return;
+            }
+
+            var resultado = algoritmoHavelHakimi(nums);
+            mostrar(resultado);
+        }
+
+        function algoritmoHavelHakimi(secuencia) {
+            var pasos = [];
+            var sec = secuencia.slice();
+            var paso = 0;
+
+            pasos.push({
+                paso: paso,
+                antes: null,
+                despues: sec.slice(),
+                accion: 'Secuencia inicial',
+                k: null
+            });
+
+            while (true) {
+                sec.sort(function(a, b) { return b - a; });
+
+                var todoCero = true;
+                for (var i = 0; i < sec.length; i++) {
+                    if (sec[i] != 0) {
+                        todoCero = false;
+                        break;
+                    }
+                }
+
+                if (todoCero) {
+                    paso++;
+                    pasos.push({
+                        paso: paso,
+                        antes: sec.slice(),
+                        despues: sec.slice(),
+                        accion: 'Todos son cero - VALIDO',
+                        k: null
+                    });
+                    return { valido: true, pasos: pasos };
+                }
+
+                if (sec.length == 0) {
+                    paso++;
+                    pasos.push({
+                        paso: paso,
+                        antes: [],
+                        despues: [],
+                        accion: 'Secuencia vacia - VALIDO',
+                        k: null
+                    });
+                    return { valido: true, pasos: pasos };
+                }
+
+                if (sec[0] < 0 || sec[0] >= sec.length) {
+                    paso++;
+                    pasos.push({
+                        paso: paso,
+                        antes: sec.slice(),
+                        despues: sec.slice(),
+                        accion: 'Grado invalido - NO VALIDO',
+                        k: null
+                    });
+                    return { valido: false, pasos: pasos };
+                }
+
+                paso++;
+                var antes = sec.slice();
+                var k = sec[0];
+                sec.shift();
+
+                for (var i = 0; i < k; i++) {
+                    sec[i]--;
+                    if (sec[i] < 0) {
+                        pasos.push({
+                            paso: paso,
+                            antes: antes,
+                            despues: sec.slice(),
+                            accion: 'Grado negativo - NO VALIDO',
+                            k: k
+                        });
+                        return { valido: false, pasos: pasos };
+                    }
+                }
+
+                pasos.push({
+                    paso: paso,
+                    antes: antes,
+                    despues: sec.slice(),
+                    accion: 'Eliminar ' + k + ' y restar 1 a los siguientes ' + k,
+                    k: k
+                });
+
+                if (paso > 50) {
+                    return { valido: false, pasos: pasos };
+                }
+            }
+        }
+
+        function mostrar(resultado) {
+            var html = '<h2>Pasos del algoritmo:</h2>';
+
+            for (var i = 0; i < resultado.pasos.length; i++) {
+                var p = resultado.pasos[i];
+                html += '<div class="paso">';
+                html += '<span class="numero">Paso ' + p.paso + '</span> ';
+                html += '<b>' + p.accion + '</b><br><br>';
+
+                if (p.antes != null) {
+                    html += '<b>Antes:</b> ';
+                    for (var j = 0; j < p.antes.length; j++) {
+                        var clase = 'grado';
+                        if (j == 0) clase += ' eliminado';
+                        else if (p.k != null && j <= p.k) clase += ' disminuido';
+                        html += '<span class="' + clase + '">' + p.antes[j] + '</span> ';
+                    }
+                    html += '<br><br>';
+                }
+
+                html += '<b>Despues:</b> ';
+                if (p.despues.length == 0) {
+                    html += '(vacio)';
+                } else {
+                    for (var j = 0; j < p.despues.length; j++) {
+                        html += '<span class="grado">' + p.despues[j] + '</span> ';
+                    }
+                }
+                html += '</div>';
+            }
+
+            if (resultado.valido) {
+                html += '<div class="resultado valido">RESULTADO: LA SECUENCIA ES VALIDA<br>';
+                html += 'Se puede formar un grafo simple con estos grados</div>';
+            } else {
+                html += '<div class="resultado invalido">RESULTADO: LA SECUENCIA NO ES VALIDA<br>';
+                html += 'No se puede formar un grafo simple con estos grados</div>';
+            }
+
+            document.getElementById('resultados').innerHTML = html;
+        }
+    </script>
+</body>
+</html>

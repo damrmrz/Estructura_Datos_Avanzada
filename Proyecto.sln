@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoS3_Damian", "ProyectoS3_Damian\ProyectoS3_Damian.csproj", "{3240573C-247C-1384-7658-8337303DC869}"
+EndProject
+
+Global
+    GlobalSection(SolutionConfigPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+
+    GlobalSection(ProjectConfigPlatforms) = postSolution
+        {3240573C-247C-1384-7658-8337303DC869}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {3240573C-247C-1384-7658-8337303DC869}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {3240573C-247C-1384-7658-8337303DC869}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {3240573C-247C-1384-7658-8337303DC869}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+
+    GlobalSection(SolutionSettings) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+
+    GlobalSection(ExtensibilityInfo) = postSolution
+        SolutionGuid = {CAD6D761-616A-4677-B3E9-3A4134D45671}
+    EndGlobalSection
+EndGlobal

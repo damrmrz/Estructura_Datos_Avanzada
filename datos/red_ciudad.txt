@@ -1,0 +1,35 @@
+# Red de Transporte Urbano - Ciudad Ejemplo
+# Formato: nodo_origen nodo_destino peso(km o minutos)
+# Nodos representan intersecciones o estaciones principales
+
+# Numero de nodos
+10
+
+# Aristas (origen destino peso)
+0 1 5.2
+0 2 8.1
+1 2 3.5
+1 3 6.7
+2 4 4.8
+3 4 2.9
+3 5 7.3
+4 5 5.6
+4 6 8.9
+5 7 6.4
+6 7 3.2
+6 8 9.1
+7 8 4.7
+7 9 5.8
+8 9 3.3
+
+# Descripcion de nodos (opcional)
+# 0: Centro Comercial
+# 1: Plaza Principal
+# 2: Estacion de Autobuses
+# 3: Hospital Central
+# 4: Universidad
+# 5: Parque Municipal
+# 6: Zona Industrial
+# 7: Aeropuerto
+# 8: Terminal de Carga
+# 9: Puerto
